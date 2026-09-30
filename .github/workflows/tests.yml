@@ -1,0 +1,38 @@
+name: Tests with AI triage
+
+# The tests in this repo fail on purpose, so this run is red by design.
+# When they fail, AI Test Triage explains each failure in plain English
+# on the run's summary page, and as a comment on pull requests.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: maven
+
+      - name: Run tests
+        run: mvn -B test
+
+      - name: AI test triage
+        if: failure()
+        uses: Rushi7795/ai-test-triage@v1
+        with:
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          context: "Small Java 17 online shop backend (cart, orders, payment client, email notifications). Tests run on a fresh GitHub Actions runner; no external services are started."
