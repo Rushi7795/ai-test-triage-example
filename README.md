@@ -24,11 +24,11 @@ team has to sort out after a CI run goes red.
 |---|---|---|---|---|
 | `CartTest.totalMultipliesPriceByQuantity` | `Cart.total()` ignores the quantity, so 2 x 29.99 comes out as 29.99 | PRODUCT BUG | PRODUCT BUG | Correct |
 | `OrderServiceTest.placingAnOrderStoresIt` | The test never assigns its `repository` field, so the test itself throws a NullPointerException | TEST BUG | TEST BUG | Correct |
-| `PaymentClientTest.chargeIsAccepted` | The test expects a payment gateway on `localhost:8089`, which is not running in CI | ENVIRONMENT/FLAKY | TEST BUG | Defensible. A unit test that calls a live server is arguably a badly designed test, and the suggested fix (use a stub server) is the right one either way |
+| `PaymentClientTest.chargeIsAccepted` | The test expects a payment gateway on `localhost:8089`, which is not running in CI | ENVIRONMENT/FLAKY | TEST BUG or ENVIRONMENT/FLAKY (varies between runs) | Defensible either way. A unit test that calls a live server is arguably a badly designed test, and the suggested fix (use a stub server) is the right one in both cases |
 | `NotificationServiceTest.confirmationIsSent` | The email step takes about 300 ms, but the test only waits 100 ms | ENVIRONMENT/FLAKY | UNCLEAR | Fair. The report only says "timed out"; the 300 ms delay is in the source code, which the triage step never sees. It asked for more evidence instead of guessing |
 
-Results from the first run on this repo. AI answers can vary slightly between runs.
-Two exact matches and two reasonable disagreements: the triage is a fast first
+Results across the first three runs on this repo. AI answers can vary slightly between runs.
+Two or three exact matches per run, the rest reasonable disagreements: the triage is a fast first
 opinion for a person to confirm, not a final verdict.
 
 ## Try it on your own fork
