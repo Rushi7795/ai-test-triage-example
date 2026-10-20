@@ -4,6 +4,8 @@ A tiny Java shop backend with tests that **fail on purpose**, so you can see
 [AI Test Triage](https://github.com/Rushi7795/ai-test-triage) work without
 needing a broken test suite of your own.
 
+Part of the AI Test Triage project: https://famingu.com/work/ai-test-triage
+
 ## See it in action (no setup needed)
 
 - **Latest run:** open the [Actions tab](../../actions), click the newest
